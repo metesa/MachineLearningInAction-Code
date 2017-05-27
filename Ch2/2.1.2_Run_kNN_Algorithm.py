@@ -13,12 +13,6 @@ print("=====================================\nStep 01: Import kNN.py and create 
 import kNN
 group, labels = kNN.createDataSet()
 
-print("=====================================\nStep 02: Check value of imported dataset\n")
-print("group = ")
-print(group)
-print("labels = ")
-print(labels)
-
-print("=====================================\nStep 03: Classify with kNN algorithm\n")
+print("=====================================\nStep 02: Classify with kNN algorithm\n")
 print("result = ")
 print(kNN.classify0([0, 0], group, labels, 3))

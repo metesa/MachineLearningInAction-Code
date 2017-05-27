@@ -92,3 +92,14 @@ def file2matrix(filename):
         #     increase returnMat's line index by 1
         index += 1
     return returnMat, classLabelVector
+
+# Chapter 2.3 - Project: Improve Recommendation for Dating Website
+def autoNorm(dataSet):
+    minVals = dataSet.min(0)
+    maxVals = dataSet.max(0)
+    ranges = maxVals - minVals
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[0]
+    normDataSet = dataSet - tile(minVals, (m, 1))
+    normDataSet = normDataSet / tile(ranges, (m, 1))
+    return normDataSet, ranges, minVals
