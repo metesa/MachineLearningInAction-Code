@@ -58,3 +58,9 @@ print("\nranges = ")
 print(ranges)
 print("\nminVals = ")
 print(minVals)
+
+print("=====================================\nStep 05: Test the classifier\n")
+kNN.datingClassTest()
+
+print("=====================================\nStep 06: Use the classifier\n")
+kNN.classifyPerson()
