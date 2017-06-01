@@ -11,7 +11,7 @@ print("    By : Troy Lewis\n*************************************\n\n")
 
 print("=====================================\nStep 01: Import kNN.py and create dataset\n")
 import kNN
-group, labels = kNN.createDataSet()
+group, labels = kNN.create_dataset()
 
 print("=====================================\nStep 02: Check value of imported dataset\n")
 print("group = ")

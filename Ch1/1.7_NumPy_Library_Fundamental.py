@@ -14,31 +14,31 @@ from numpy import *
 print("from numpy import *")
 
 print("=====================================\nStep 02: Generate a 4x4 array\n")
-randArray = random.rand(4, 4)
-print("randArray = random.rand(4, 4) = ")
-print(randArray)
+rand_array = random.rand(4, 4)
+print("rand_array = random.rand(4, 4) = ")
+print(rand_array)
 
 print("=====================================\nStep 03: Convert this array to matrix\n")
-randMat = mat(randArray)
-print("randMat = mat(randArray) = ")
-print(randMat)
+rand_mat = mat(rand_array)
+print("rand_mat = mat(rand_array) = ")
+print(rand_mat)
 
 print("=====================================\nStep 04: Inverse this matrix\n")
-invMat = randMat.I
-print("invMat = randMat.I = ")
-print(invMat)
+inv_mat = rand_mat.I
+print("inv_mat = rand_mat.I = ")
+print(inv_mat)
 
 print("=====================================\nStep 05: Multiply two matrix\n")
-resultMat = randMat * invMat
-print("randArray = randMat * invMat = ")
-print(resultMat)
+result_mat = rand_mat * inv_mat
+print("rand_array = rand_mat * inv_mat = ")
+print(result_mat)
 
 print("=====================================\nStep 06: Generate an 4x4 identity matrix\n")
-myEye = eye(4)
-print("myEye = eye(4) = ")
-print(myEye)
+my_eye = eye(4)
+print("my_eye = eye(4) = ")
+print(my_eye)
 
 print("=====================================\nStep 07: Calculate error between result matrix and identity matrix\n")
-errorMat = resultMat - myEye
-print("errorMat = resultMat - myEye = ")
-print(errorMat)
+error_mat = result_mat - my_eye
+print("error_mat = result_mat - my_eye = ")
+print(error_mat)

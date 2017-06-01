@@ -5,8 +5,9 @@
 from numpy import *
 import operator
 
+
 # Chapter 2.1.1 - Preparation: Import Data with Python
-def createDataSet():
+def create_dataset():
     # Define an 4x2 array(2-Dimensional)
     group = array([[1.0, 1.1], [1.0, 1.0], [0, 0], [0, 0.1]])
     # Define the label list
@@ -16,10 +17,11 @@ def createDataSet():
     labels = ['A', 'A', 'B', 'B']
     return group, labels
 
+
 # Chapter 2.1.2 - Run kNN Algorithm (Program List 2-1)
-def classify0(inX, dataSet, labels, k):
-    # inX     - the unknown input data
-    # dataSet - the known data
+def classify0(in_x, dataset, labels, k):
+    # in_x    - the unknown input data
+    # dataset - the known data
     # labels  - the real result of the known data
     # k       - pick the closest k records to determine the type of result
 
@@ -27,51 +29,53 @@ def classify0(inX, dataSet, labels, k):
 
     # Get the row count
     #     NumPy.array.shape returns a tuple like (row count, column count)
-    #         dataSet.shape = (4, 2)
-    dataSetSize = dataSet.shape[0]
+    #         dataset.shape = (4, 2)
+    dataset_size = dataset.shape[0]
 
     # Calculate distance
     #     NumPy.tile(a, (r, c)) duplicates the data r rows and c columns
-    #         inX = [0, 0]
-    #         tile(inX, (4, 1)) = 
+    #         in_x = [0, 0]
+    #         tile(in_x, (4, 1)) =
     #             [[0, 0], [0, 0], [0, 0], [0, 0]]
-    diffMat = tile(inX, (dataSetSize, 1)) - dataSet
+    diff_mat = tile(in_x, (dataset_size, 1)) - dataset
     #     array**2 means square of each element
-    sqDiffMat = diffMat**2
+    sq_diff_mat = diff_mat ** 2
     #     array.sum means summing up specific elements
-    #         for a N-dimentional array, axis can be in range(N)
+    #         for a N-dimensional array, axis can be in range(N)
     #         axis = None(default) means all elements
     #         axis = 0 means performing column actions and adding to one row
     #         axis = 1 means performing row actions and adding to one column
     #         Here means adding the dx^2 and dy^2 to the distance^2
-    sqDistances = sqDiffMat.sum(axis=1)
+    sq_distances = sq_diff_mat.sum(axis=1)
     #     array**0.5 means square root of each element, which is the real distance
-    distances = sqDistances**0.5
+    distances = sq_distances ** 0.5
 
     # Sort
     #     NumPy.argsort() returns a sorted list of indices from small to big
-    sortedDistIndicies = distances.argsort()
-    
+    sorted_dist_indicies = distances.argsort()
+
     # Get the best k result
-    classCount={}
+    class_count = {}
     for i in range(k):
         #         Get the label
-        voteIlabel = labels[sortedDistIndicies[i]]
+        vote_i_label = labels[sorted_dist_indicies[i]]
         #         Update the label count
-        classCount[voteIlabel] = classCount.get(voteIlabel, 0) + 1
-    #         sort() means sort the original input
+        class_count[vote_i_label] = class_count.get(vote_i_label, 0) + 1
+    # sort() means sort the original input
     #         sorted() means sort the copy of the input
     #         items() returns the original object
     #         iteritems() returns the iterator object
     #         operator.itemgetter(1) returns the 2nd(count) column of input(label, count)
     #         key can also be specified with lambda(key=lambda x : x[1])
     #         reverse = True means decent order
-    sortedClassCount = sorted(classCount.iteritems(),
-      key=operator.itemgetter(1), reverse=True)
+    sorted_class_count = sorted(class_count.iteritems(),
+                                key=operator.itemgetter(1), reverse=True)
     # Return the label of the item with the maximum count.
-    return sortedClassCount[0][0]
+    return sorted_class_count[0][0]
+
 
 # Chapter 2.2 - Project: Improve Recommendation for Dating Website with k-means algorithm.
+
 
 # Chapter 2.2.1 - Preparation: Import Data from file
 def file2matrix(filename):
@@ -80,99 +84,101 @@ def file2matrix(filename):
     #     read() gets the whole text of a file
     #     readline() gets the next line of a file
     #     readlines() gets the lines array of a file
-    arrayOLines = fr.readlines()
+    array_of_lines = fr.readlines()
     #     get the total line count
-    numberOfLines = len(arrayOLines)
+    number_of_lines = len(array_of_lines)
     #     create a NumPy Array
-    returnMat = zeros((numberOfLines, 3))
+    return_mat = zeros((number_of_lines, 3))
     # import data
-    classLabelVector = []
+    class_label_vector = []
     index = 0
-    for line in arrayOLines:
+    for line in array_of_lines:
         #     remove spaces (including '\n', '\r', '\t', ' ') on margins
         line = line.strip()
         #     split to list elements by '\t'
         #     '\t' means Tab
-        listFromLine = line.split('\t')
+        list_from_line = line.split('\t')
         #     copy value from line to the specific line of the return Matrix
-        returnMat[index,:] = listFromLine[0:3]
+        return_mat[index, :] = list_from_line[0:3]
         #     convert the last value to integer and append it to the label
-        classLabelVector.append(int(listFromLine[-1]))
-        #     increase returnMat's line index by 1
+        class_label_vector.append(int(list_from_line[-1]))
+        #     increase return_mat's line index by 1
         index += 1
-    return returnMat, classLabelVector
+    return return_mat, class_label_vector
+
 
 # Chapter 2.2.3 - Processing: Auto normalization
-def autoNorm(dataSet):
+def auto_normalization(dataset):
     # array.min(axis=0) means the minimum element for each column/feature(axis=1 for each row/record)
-    minVals = dataSet.min(0)
+    min_vals = dataset.min(0)
     # array.max(axis=0) means the maximum element for each column/feature(axis=1 for each row/record)
-    maxVals = dataSet.max(0)
+    max_vals = dataset.max(0)
     # range for each column/feature
-    ranges = maxVals - minVals
-    # create a new array that has the same shape as dataSet with 0
-    normDataSet = zeros(shape(dataSet))
+    ranges = max_vals - min_vals
     # shape[0] returns the total row/record count
-    m = dataSet.shape[0]
-    # tile creates a new array by duplicating minVals by m times in row and keeping the original columns
-    #     now the normDataSet has no negative values
-    normDataSet = dataSet - tile(minVals, (m, 1))
+    m = dataset.shape[0]
+    # tile creates a new array by duplicating min_vals by m times in row and keeping the original columns
+    #     now the norm_dataset has no negative values
+    norm_dataset = dataset - tile(min_vals, (m, 1))
     # tile creates a new array by duplication ranges by m times in row and keeping the original columns
     #     now the elements from norDataSet are in range 0 to 1
-    normDataSet = normDataSet / tile(ranges, (m, 1))
-    # normDataSet - the normalized dataset
+    norm_dataset = norm_dataset / tile(ranges, (m, 1))
+    # norm_dataset - the normalized dataset
     # ranges      - the range for each column/features
-    # minVals     - the minimum values for each column/features
-    return normDataSet, ranges, minVals
+    # min_vals     - the minimum values for each column/features
+    return norm_dataset, ranges, min_vals
+
 
 # Chapter 2.2.4 - Testing: Test the classifier
 # Usually we use 90% of the data to train the model and the rest 10% of the data to test the model.
-def datingClassTest():
+def dating_class_test():
     # ratio percentage for testing
-    hoRatio = 0.10
+    ho_ratio = 0.10
     # load data from file
-    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
+    dating_data_mat, dating_labels = file2matrix('datingTestSet2.txt')
     # normalize data to range 0 ~ 1
-    normMat, ranges, minVals = autoNorm(datingDataMat)
+    norm_mat, ranges, min_vals = auto_normalization(dating_data_mat)
     # get row/record count
-    m = normMat.shape[0]
+    m = norm_mat.shape[0]
     # get count of the records for testing purpose
-    numTestVecs = int(m*hoRatio)
+    num_test_vecs = int(m * ho_ratio)
     # get count of bad classification
-    errorCount = 0.0
+    error_count = 0.0
     # test the classifier
-    for i in range(numTestVecs):
-        # normMat[i,:] means the i'th row/record
-        # normMat[numTestVecs:m,:] means all the data that is for training purpose
-        # datingLabels[numTestVecs:m] means the real result of training data records
+    for i in range(num_test_vecs):
+        # norm_mat[i,:] means the i'th row/record
+        # norm_mat[num_test_vecs:m,:] means all the data that is for training purpose
+        # dating_labels[num_test_vecs:m] means the real result of training data records
         # 3 means pick the closest 3 records to determine the type of result
-        classifierResult = classify0(normMat[i,:], normMat[numTestVecs:m,:], \
-                    datingLabels[numTestVecs:m], 3)
+        classifier_result = classify0(norm_mat[i, :], norm_mat[num_test_vecs:m, :],
+                                      dating_labels[num_test_vecs:m], 3)
         # display the result for each record
         print "the classifier came back with: %d, the real answer is: %d" \
-                    % (classifierResult, datingLabels[i])
+              % (classifier_result, dating_labels[i])
         # update the count of bad classification
-        if (classifierResult != datingLabels[i]): errorCount += 1.0
+        if classifier_result != dating_labels[i]:
+            error_count += 1.0
     # display the final stats
-    print "the total error rate is: %f" % (errorCount / float(numTestVecs))
+    print "the total error rate is: %f" % (error_count / float(num_test_vecs))
+
 
 # Chapter 2.2.5 - Application: Build a complete system
-def classifyPerson():
+def classify_person():
     # List for mapping result values from integers to strings
-    resultList = ['not at all', 'in small doses', 'in large doses']
+    result_list = ['not at all', 'in small doses', 'in large doses']
     # get the first value
-    percentTats = float(raw_input("percentage of time spent playing video games?\n"))
+    percent_tats = float(raw_input("percentage of time spent playing video games?\n"))
     # get the second value
-    ffMiles = float(raw_input("frequent flier miles earned per year?\n"))
+    ff_miles = float(raw_input("frequent flier miles earned per year?\n"))
     # get the third value
-    iceCream = float(raw_input("liters of ice cream consumed per year?\n"))
+    ice_cream = float(raw_input("liters of ice cream consumed per year?\n"))
     # load data from file
-    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
+    dating_data_mat, dating_labels = file2matrix('datingTestSet2.txt')
     # normalize data to range 0 ~ 1
-    normMat, ranges, minVals = autoNorm(datingDataMat)
+    norm_mat, ranges, min_vals = auto_normalization(dating_data_mat)
     # convert a list to a array for storing input values
-    inArr = array([ffMiles, percentTats, iceCream])
+    in_arr = array([ff_miles, percent_tats, ice_cream])
     # normalize input values and classify it with k=3
-    classifierResult = classify0((inArr - minVals) / ranges, normMat, datingLabels, 3)
+    classifier_result = classify0((in_arr - min_vals) / ranges, norm_mat, dating_labels, 3)
     # display the result
-    print "You will probably like this person: ", resultList[classifierResult - 1]
+    print "You will probably like this person: ", result_list[classifier_result - 1]
