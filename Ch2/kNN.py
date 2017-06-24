@@ -4,6 +4,7 @@
 
 from numpy import *
 import operator
+import os
 
 
 # Chapter 2.1.1 - Preparation: Import Data with Python
@@ -19,11 +20,11 @@ def create_dataset():
 
 
 # Chapter 2.1.2 - Run kNN Algorithm (Program List 2-1)
-def classify0(in_x, dataset, labels, k):
+def classify0(in_x, dataset, labels, k_count):
     # in_x    - the unknown input data
     # dataset - the known data
     # labels  - the real result of the known data
-    # k       - pick the closest k records to determine the type of result
+    # k_count - pick the closest k_count records to determine the type of result
 
     # return  - classified result value
 
@@ -54,9 +55,9 @@ def classify0(in_x, dataset, labels, k):
     #     NumPy.argsort() returns a sorted list of indices from small to big
     sorted_dist_indicies = distances.argsort()
 
-    # Get the best k result
+    # Get the best k_count result
     class_count = {}
-    for i in range(k):
+    for i in range(k_count):
         #         Get the label
         vote_i_label = labels[sorted_dist_indicies[i]]
         #         Update the label count
@@ -182,3 +183,52 @@ def classify_person():
     classifier_result = classify0((in_arr - min_vals) / ranges, norm_mat, dating_labels, 3)
     # display the result
     print "You will probably like this person: ", result_list[classifier_result - 1]
+
+
+# Chapter 2.3.1 - Preparation: Convert image to testing vector
+def img2vector(filename):
+    # get a new numpy array with like
+    #     return_vec = [[0,0...0,0]]
+    return_vec = zeros((1, 1024))
+    fr = open(filename)
+    for i in range(32):
+        line_str = fr.readline()
+        for j in range(32):
+            return_vec[0, 32 * i + j] = int(line_str[j])
+    return return_vec
+
+
+# Chapter 2.3.2 - Testing: Commit Handwriting Recognition with k-means Algorithm
+def handwriting_test():
+    handwriting_labels = []
+    training_file_list = os.listdir('digits/trainingDigits')
+    m_training = len(training_file_list)
+    training_mat = zeros((m_training, 1024))
+    for i in range(m_training):
+        filename_str = training_file_list[i]
+        # remove extension
+        file_str = filename_str.split('.')[0]
+        # get the real digit label
+        class_number_str = int(file_str.split('_')[0])
+        handwriting_labels.append(class_number_str)
+        training_mat[i, :] = img2vector('digits/trainingDigits/%s' % filename_str)
+    test_file_list = os.listdir('digits/testDigits')
+    error_count = 0.0
+    m_test = len(test_file_list)
+    for i in range(m_test):
+        filename_str = test_file_list[i]
+        file_str = filename_str.split('.')[0]
+        class_number_str = int(file_str.split('_')[0])
+        vector_under_test = img2vector('digits/testDigits/%s' % filename_str)
+        classifier_result = classify0(vector_under_test,
+                                      training_mat, handwriting_labels, 3)
+        if classifier_result != class_number_str:
+            error_count += 1
+            print "the classifier came back with: %d, the real answer is %d. Wrong answer!" % \
+                  (classifier_result, class_number_str)
+        else:
+            print "the classifier came back with: %d, the real answer is %d." % \
+                  (classifier_result, class_number_str)
+
+    print "\nthe total number of errors is: %d" % error_count
+    print "\nthe total error rate is: %f" % (error_count / float(m_test))
