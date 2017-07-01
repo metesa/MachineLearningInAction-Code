@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Part 1 - Chapter 2 - kNN Algorithm Module
 
+
 from numpy import *
 import operator
 import os
@@ -230,5 +231,5 @@ def handwriting_test():
             print "the classifier came back with: %d, the real answer is %d." % \
                   (classifier_result, class_number_str)
 
-    print "\nthe total number of errors is: %d" % error_count
-    print "\nthe total error rate is: %f" % (error_count / float(m_test))
+    print "\nThe total number of errors is: %d" % error_count
+    print "\nThe total error rate is: %f" % (error_count / float(m_test))
