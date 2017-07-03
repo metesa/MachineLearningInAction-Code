@@ -38,3 +38,7 @@ print(trees.split_dataset(my_data, 1, 0))
 print("=====================================\nStep 05: Calculate the best feature to split the dataset\n")
 print("best feature to split the dataset is:")
 print(trees.choose_best_feature_to_split(my_data))
+
+print("=====================================\nStep 06: Create tree from dataset\n")
+print("create tree:")
+print(trees.create_tree(my_data, labels))
