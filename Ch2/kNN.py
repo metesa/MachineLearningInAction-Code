@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # Part 1 - Chapter 2 - kNN Algorithm Module
 
-
 from numpy import *
 import operator
 import os

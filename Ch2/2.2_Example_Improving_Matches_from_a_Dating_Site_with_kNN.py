@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Part 1 - Chapter 2.2 - 4 Project: Improve Recommendation for Dating Website
+# Part 1 - Chapter 2.2 - 3 - Example: Improving Matches from a Dating Site with kNN
 
 print("*************************************\n  Machine Learning In Action - Code\n")
 print("    Part    : 1   - Classification")
-print("    Chapter : 2.2 - Project: Improve Recommendation for Dating Website")
-print("    Index   : 4\n")
+print("    Chapter : 2.2 - Example: Improving Matches from a Dating Site with kNN")
+print("    Index   : 3\n")
 print("    Page    : 20\n")
 print("    By : Troy Lewis\n*************************************\n\n")
 

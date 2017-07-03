@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Part 1 - Chapter 1.7 - 1 NumPy Library Fundamental
+# Part 1 - Chapter 1.7 - 1 - Getting Started with the NumPy Library
 
 print("*************************************\n  Machine Learning In Action - Code\n")
 print("    Part    : 1   - Classification")
-print("    Chapter : 1.7 - NumPy Library Fundamental")
+print("    Chapter : 1.7 - Getting Started with the NumPy Library")
 print("    Index   : 1\n")
 print("    Page    : 12\n")
 print("    By : Troy Lewis\n*************************************\n\n")

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Part 1 - Chapter 2.3 - 5 Project: Handwriting Recognition
+# Part 1 - Chapter 2.3 - 4 - Example: a Handwriting Recognition System
 
 
 print("*************************************\n  Machine Learning In Action - Code\n")
 print("    Part    : 1   - Classification")
-print("    Chapter : 2.3 - Project: Handwriting Recognition")
-print("    Index   : 5\n")
+print("    Chapter : 2.3 - Example: a Handwriting Recognition System")
+print("    Index   : 4\n")
 print("    Page    : 28\n")
 print("    By : Troy Lewis\n*************************************\n\n")
 
