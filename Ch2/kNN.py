@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Part 1 - Chapter 2 - kNN Algorithm Module
+# Part 1 - Chapter 2 - k-Nearest Neighbors
 
 from numpy import *
 import operator
@@ -136,7 +136,7 @@ def dating_class_test():
     # ratio percentage for testing
     ho_ratio = 0.10
     # load data from file
-    dating_data_mat, dating_labels = file2matrix('datingTestSet2.txt')
+    dating_data_mat, dating_labels = file2matrix('dating_test_set2.txt')
     # normalize data to range 0 ~ 1
     norm_mat, ranges, min_vals = auto_normalization(dating_data_mat)
     # get row/record count
@@ -174,7 +174,7 @@ def classify_person():
     # get the third value
     ice_cream = float(raw_input("liters of ice cream consumed per year?\n"))
     # load data from file
-    dating_data_mat, dating_labels = file2matrix('datingTestSet2.txt')
+    dating_data_mat, dating_labels = file2matrix('dating_test_set2.txt')
     # normalize data to range 0 ~ 1
     norm_mat, ranges, min_vals = auto_normalization(dating_data_mat)
     # convert a list to a array for storing input values
@@ -201,7 +201,7 @@ def img2vector(filename):
 # Chapter 2.3.2 - Testing: Commit Handwriting Recognition with k-means Algorithm
 def handwriting_test():
     handwriting_labels = []
-    training_file_list = os.listdir('digits/trainingDigits')
+    training_file_list = os.listdir('digits/training_digits')
     m_training = len(training_file_list)
     training_mat = zeros((m_training, 1024))
     for i in range(m_training):
@@ -211,15 +211,15 @@ def handwriting_test():
         # get the real digit label
         class_number_str = int(file_str.split('_')[0])
         handwriting_labels.append(class_number_str)
-        training_mat[i, :] = img2vector('digits/trainingDigits/%s' % filename_str)
-    test_file_list = os.listdir('digits/testDigits')
+        training_mat[i, :] = img2vector('digits/training_digits/%s' % filename_str)
+    test_file_list = os.listdir('digits/test_digits')
     error_count = 0.0
     m_test = len(test_file_list)
     for i in range(m_test):
         filename_str = test_file_list[i]
         file_str = filename_str.split('.')[0]
         class_number_str = int(file_str.split('_')[0])
-        vector_under_test = img2vector('digits/testDigits/%s' % filename_str)
+        vector_under_test = img2vector('digits/test_digits/%s' % filename_str)
         classifier_result = classify0(vector_under_test,
                                       training_mat, handwriting_labels, 3)
         if classifier_result != class_number_str:

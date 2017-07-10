@@ -13,7 +13,7 @@ print("=====================================\nStep 01: Import kNN.py and create 
 # "reload(kNN)" instead of "import kNN" if kNN.py changes
 import kNN
 
-dating_data_mat, dating_labels = kNN.file2matrix('datingTestSet2.txt')
+dating_data_mat, dating_labels = kNN.file2matrix('dating_test_set2.txt')
 
 print("=====================================\nStep 02: Check value of imported dataset\n")
 print("dating_data_mat = ")

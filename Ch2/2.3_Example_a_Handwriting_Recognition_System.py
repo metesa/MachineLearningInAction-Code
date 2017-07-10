@@ -12,7 +12,7 @@ print("    By : Troy Lewis\n*************************************\n\n")
 
 print("=====================================\nStep 01: Import kNN.py and test img2vector\n")
 import kNN
-test_vector = kNN.img2vector('digits/testDigits/0_13.txt')
+test_vector = kNN.img2vector('digits/test_digits/0_13.txt')
 print "array1 = "
 print test_vector[0, 0:32]
 print "array2 = "
